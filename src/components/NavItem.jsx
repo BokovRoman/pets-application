@@ -4,12 +4,12 @@ import { Link} from "react-router-dom";
 
 
 
-const NavItem = ({imgSrc, btnContent, btnUrl, green, yellow}) => {
+const NavItem = ({imgSrc, btnContent, url,alt, green, yellow}) => {
     return (
         <Wrapper 
             imgSrc={imgSrc} 
             btnContent={btnContent} 
-            btnUrl={btnUrl} 
+            url={url} 
             green={green}
             yellow={yellow}
         >
@@ -17,9 +17,9 @@ const NavItem = ({imgSrc, btnContent, btnUrl, green, yellow}) => {
             green={green}
             yellow={yellow}
             >
-                <img src={imgSrc} alt=""/>
+            <img src={imgSrc} alt={alt}/>
             </Div>
-            <Link to="/">
+            <Link to={url}>
                 <A>{btnContent}</A>
             </Link>
         </Wrapper>
@@ -27,14 +27,6 @@ const NavItem = ({imgSrc, btnContent, btnUrl, green, yellow}) => {
 }
 
 export default NavItem
-
-const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-`
-
 
 const Div = styled.div`
     background-color: #B4B7FF;
@@ -50,9 +42,6 @@ const Div = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    &:hover {
-        border: 5px solid #FFFFFF;
-    }
 `
 
 const A = styled.a`
@@ -65,7 +54,16 @@ const A = styled.a`
     text-transform: uppercase;
     border-radius: 10px;
     transition: all 0.4s ease;
-    &:hover {
+`
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &:hover ${A} {
         background: #FBE0DC;
+    }
+    &:hover ${Div} {
+        border: 5px solid #FFFFFF;
     }
 `

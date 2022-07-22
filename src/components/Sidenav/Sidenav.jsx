@@ -1,12 +1,15 @@
 import Navbar from 'components/Navbar';
 import styled from 'styled-components';
 import logo from '../../images/logo.svg';
+import { Link} from "react-router-dom";
 
 const Sidenav = () => {
     return (
         <Section>
             <Wrapper>
-                <Logo src={logo} alt="logo pets-paw" />
+                <Link to="/">
+                    <Logo src={logo} alt="logo pets-paw" />
+                </Link>
                 <div>
                     <h1>Hi Intern!</h1>
                     <p>Welcome to MI 2022 Front-end test</p>    
@@ -26,6 +29,7 @@ const Section = styled.section`
     background: ${props => props.theme.bgMain};
     height: 100vh;
     width: 50%;
+    position: sticky;
 `
 
 const Wrapper = styled.div`
