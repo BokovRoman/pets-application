@@ -43,6 +43,7 @@ const SortBtn = styled.div`
     margin-left: 10px;
     border-radius: 10px;
     display: flex;
+    border: 2px solid rgba(255, 134, 142, 0);
     justify-content: space-between;
     align-content: center;
     &:hover {

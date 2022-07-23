@@ -51,6 +51,7 @@ const DropDownHeader = styled("div")`
     margin-left: 10px;
     border-radius: 10px;
     cursor: pointer;
+    border: 2px solid rgba(255, 134, 142, 0);
     position: relative;
     display: flex;
     flex-direction: row;

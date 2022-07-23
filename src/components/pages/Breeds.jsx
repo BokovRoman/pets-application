@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Search from '../Search';
 import Layout from '../Layout';
 import GoBack from '../GoBack';
-import Grid from 'components/Grid';
 import Sorting from 'components/Sorting';
 
 const Breeds = () => {
@@ -15,7 +14,6 @@ const Breeds = () => {
                     <GoBack btnContent="Breeds" />
                     <Sorting/>
                 </span>
-                <Grid/>
             </Wrapper>
         </Layout> 
     )

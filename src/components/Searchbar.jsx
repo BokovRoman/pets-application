@@ -27,7 +27,7 @@ const Div = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    transition: border 0.1s ease;
+    border: 2px solid rgba(255, 134, 142, 0);
     &:hover{
         border: 2px solid #FBE0DC;
     }

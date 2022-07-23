@@ -1,20 +1,43 @@
+import axios from 'axios';
+import { useEffect, useState, useContext } from 'react';
 import Search from './Search'; 
 import Layout from './Layout';
 import GoBack from './GoBack';
 import ActionLog from './ActionLog';
 import styled from 'styled-components';
 import cat from '../images/cat-voting.png';
+import { CatContext } from './services/CatContext';
     
-const Voting = () => {
+const Voting = ({ like, fav, disl }) => {
+    const [liked, addToLiked] = useContext(CatContext);
+    const [randomCat, setRandomCat] = useState({});
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios('https://api.thecatapi.com/v1/images/search');
+            setRandomCat(response.data[0])
+            };
+        fetchData(randomCat);
+    }, [liked]);
+
+    const url = randomCat.url;
+    const id = randomCat.id;
+
+
+    const handleLike = (randomCat) => {
+        addToLiked(prevLiked => [...prevLiked, randomCat])
+    }
+    console.log(liked);
+
     return (
         <Layout flexCol>
             <Search />
             <Wrapper>
                 <GoBack btnContent="Voting" />
-                <Img src={cat} alt="Cat-voting-logo" />
+                <Img src={url} alt="Cat-voting-logo" />
                 <Flexbox>
                     <Actions>
-                        <ActionBtn like>
+                        <ActionBtn like onClick={() => handleLike(randomCat)}>
                             <SVG like viewBox="0 0 30 30"> 
                                 <path d="M0 15C0 6.71573 6.71573 0 15 0C23.2843 0 30 6.71573 30 15C30 23.2843 23.2843 30 15 30C6.71573 30 0 23.2843 0 15ZM15 2C7.8203 2 2 7.8203 2 15C2 22.1797 7.8203 28 15 28C22.1797 28 28 22.1797 28 15C28 7.8203 22.1797 2 15 2ZM10 12H8V10H10V12ZM22 12H20V10H22V12ZM9.2 16.6L9.8 17.4C12.4 20.8667 17.6 20.8667 20.2 17.4L20.8 16.6L22.4 17.8L21.8 18.6C18.4 23.1333 11.6 23.1333 8.2 18.6L7.6 17.8L9.2 16.6Z"></path>
                             </SVG >
@@ -51,6 +74,8 @@ const Img = styled.img`
     border-radius: 20px;
     width: 100%;
     height: auto;
+    max-width: 100%;
+    max-height: 50%;
 ` 
 
 const Flexbox = styled.div`

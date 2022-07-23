@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-
-// import Grid from '../layout/Grid'
 import Search from '../Search'; 
 import Layout from '../Layout';
 import GoBack from '../GoBack';
+import Grid from 'components/Grid';
 
 const Gallery = () => {
     return (
@@ -12,6 +11,7 @@ const Gallery = () => {
             <Wrapper>
                 <GoBack btnContent="Galery" />
             </Wrapper>
+            <Grid/>
         </Layout>
     )
 }
