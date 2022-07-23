@@ -1,9 +1,14 @@
-import Navbar from 'components/Navbar';
+// import { useEffect, useState } from "react";
 import styled from 'styled-components';
 import logo from '../../images/logo.svg';
 import { Link} from "react-router-dom";
+import votingImg from '../../images/vote-table.svg'
+import breedsImg from '../../images/pet-breeds.svg';
+import galleryImg from '../../images/images-search.svg';
+import NavItem from '../NavItem';
 
 const Sidenav = () => {
+
     return (
         <Section>
             <Wrapper>
@@ -14,7 +19,11 @@ const Sidenav = () => {
                     <h1>Hi Intern!</h1>
                     <p>Welcome to MI 2022 Front-end test</p>    
                     <h3>Let's start using The Cat API</h3>
-                    <Navbar/>
+                    <Nav>
+                        <NavItem btnContent="Voting" imgSrc={votingImg} url="/voting" alt="voting"/>
+                        <NavItem btnContent="Breeds" imgSrc={breedsImg} green url="/breeds" alt="breeds"  />
+                        <NavItem btnContent="Gallery" imgSrc={galleryImg} yellow url="/gallery" alt="gallery"  />
+                    </Nav>
                 </div>
 
             </Wrapper>
@@ -51,4 +60,10 @@ const Wrapper = styled.div`
 const Logo = styled.img`
     width: 7rem;
     height: auto;
+` 
+const Nav = styled.nav`
+    margin: 1.5rem 0rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 ` 

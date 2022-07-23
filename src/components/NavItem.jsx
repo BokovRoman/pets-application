@@ -13,20 +13,20 @@ const NavItem = ({imgSrc, btnContent, url,alt, green, yellow}) => {
             green={green}
             yellow={yellow}
         >
-            <Div
-            green={green}
-            yellow={yellow}
-            >
-            <img src={imgSrc} alt={alt}/>
-            </Div>
             <Link to={url}>
+                <Div
+                green={green}
+                yellow={yellow}
+                >
+                <img src={imgSrc} alt={alt} />
+                </Div>
                 <A>{btnContent}</A>
             </Link>
         </Wrapper>
     )
 }
 
-export default NavItem
+export default NavItem;
 
 const Div = styled.div`
     background-color: #B4B7FF;
