@@ -1,13 +1,19 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from 'styled-components';
 import logo from '../../images/logo.svg';
-import { Link} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import votingImg from '../../images/vote-table.svg'
 import breedsImg from '../../images/pet-breeds.svg';
 import galleryImg from '../../images/images-search.svg';
 import NavItem from '../NavItem';
 
 const Sidenav = () => {
+    let location = useLocation();
+    const [path, setPath] = useState(location.pathname);
+
+    useEffect(() => {
+        setPath(location.pathname)
+    }, [location.pathname])
 
     return (
         <Section>
@@ -20,9 +26,9 @@ const Sidenav = () => {
                     <p>Welcome to MI 2022 Front-end test</p>    
                     <h3>Let's start using The Cat API</h3>
                     <Nav>
-                        <NavItem btnContent="Voting" imgSrc={votingImg} url="/voting" alt="voting"/>
-                        <NavItem btnContent="Breeds" imgSrc={breedsImg} green url="/breeds" alt="breeds"  />
-                        <NavItem btnContent="Gallery" imgSrc={galleryImg} yellow url="/gallery" alt="gallery"  />
+                        <NavItem btnContent="Voting" imgSrc={votingImg} url="/voting" alt="voting" path={path} />
+                        <NavItem btnContent="Breeds" imgSrc={breedsImg} green url="/breeds" alt="breeds" path={path}  />
+                        <NavItem btnContent="Gallery" imgSrc={galleryImg} yellow url="/gallery" alt="gallery" path={path}  />
                     </Nav>
                 </div>
 
@@ -36,13 +42,16 @@ export default Sidenav;
 
 const Section = styled.section`
     background: ${props => props.theme.bgMain};
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
     width: 50%;
-    position: sticky;
 `
 
 const Wrapper = styled.div`
+    width: 450px;
     margin: 2rem 8rem;
+    position: fixed;
+    background: ${props => props.theme.bgMain};
     h1 {
         margin-top: 5rem;
         color: ${props => props.theme.textPrim};
