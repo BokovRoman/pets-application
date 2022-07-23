@@ -6,6 +6,7 @@ export const lightTheme = {
     bgPink: "#FBE0DC",
     bgBox: "#FFFFFF",
     bgSearch: "rgba(140, 140, 140, 0)",
+    bgSort: "#F8F8F7",
   };
 
 export const darkTheme = {
@@ -16,4 +17,5 @@ export const darkTheme = {
     bgPink: "rgba(255, 255, 255, 0.05)",
     bgBox: "rgba(255, 255, 255, 0.1)",
     bgSearch: "rgba(140, 140, 140, 0)",
+    bgSort: "rgba(255, 255, 255, 0.05)",
 }

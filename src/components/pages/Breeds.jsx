@@ -4,13 +4,17 @@ import Search from '../Search';
 import Layout from '../Layout';
 import GoBack from '../GoBack';
 import Grid from 'components/Grid';
+import Sorting from 'components/Sorting';
 
 const Breeds = () => {
     return (
         <Layout flexCol> 
             <Search />
             <Wrapper>
-                <GoBack btnContent="Breeds" />
+                <span>
+                    <GoBack btnContent="Breeds" />
+                    <Sorting/>
+                </span>
                 <Grid/>
             </Wrapper>
         </Layout> 
@@ -25,4 +29,11 @@ const Wrapper = styled.div`
     width: 100%;
     height: 100%;
     padding: 20px;
-` 
+
+    span {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+    }
+`
