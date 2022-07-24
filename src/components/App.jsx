@@ -10,6 +10,7 @@ import Favourites from './pages/Favourites';
 import Dislikes from './pages/Dislikes';
 import Breeds from './pages/Breeds';
 import { CatProvider } from './services/CatContext';
+import Gallery from './pages/Gallery';
 
 
 export const App = () => {
@@ -22,7 +23,7 @@ export const App = () => {
               <Route exact path="/" element={<Home/>} />
               <Route exact path="/voting" element={<Voting/>}/>
               <Route exact path="/breeds" element={<Breeds/>} />
-              <Route exact path="/gallery" element={<Voting/>} />
+              <Route exact path="/gallery" element={<Gallery/>} />
               <Route exact path="/likes" element={<Likes />} />
               <Route exact path="/favourites" element={<Favourites/>}/>
               <Route exact path="/dislikes" element={<Dislikes/>}/>

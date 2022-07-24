@@ -17,7 +17,7 @@ const Section = styled.section`
     max-height: ${props => props.maxH && '100vh'};
     height: ${props => props.maxH && '100vh'};
     width: 50%;
-    padding: 2rem;
+    padding: 1.8rem;
     display: flex;
     justify-content: center;
     flex-direction: ${props => props.flexCol ? 'column' : 'row'}

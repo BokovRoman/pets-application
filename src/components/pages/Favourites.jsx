@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { CatContext } from '../services/CatContext';
 import Layout from '../Layout';
 import Search from '../Search'; 
@@ -7,8 +7,20 @@ import GoBack from '../GoBack';
 import NoItemFound from './NoItemFound';
 
 const Favorites = () => {
-    const { favKey } = useContext(CatContext);
+    const { favKey, chunkedKey  } = useContext(CatContext);
     const [favourites] = favKey;
+    const [chunked, setChunked] = chunkedKey;
+    useEffect(() => {
+        if (favourites.length > 0) {
+            const temporary = [...favourites];
+            const result = []
+            while (temporary.length > 0) {
+                result.push(temporary.splice(0, 10))
+            }
+            setChunked(result);
+        }
+    }, [favourites]);
+
     let message;
     if ( favourites.length === 0 ) {
         message = <NoItemFound />
@@ -18,14 +30,15 @@ const Favorites = () => {
         <Layout flexCol>
             <Search />
             <Wrapper>
-                <GoBack btnContent="Favourites" />
+                <GoBack btnContent="Likes"/>
                  { message }
-                <Pattern>
-                    {favourites.map(cat => 
-                        <GridItem >
-                            <Img src={cat.url} width="300px" />
+                {chunked.map(tenCats => <Pattern>
+                    {tenCats.map((cat, index) =>
+                        <GridItem key={cat.id} index={index} >
+                            <Img src={cat.url} />
                         </GridItem>)}
-                </Pattern>
+                   </Pattern>)
+                }
             </Wrapper>
         </Layout>
     )
@@ -50,7 +63,10 @@ const Pattern = styled.div`
     grid-template-areas: 
         "one two three"
         "one four four"
-        "five four four";
+        "five four four"
+        "six seven eight"
+        "nine nine eight"
+        "nine nine ten";
     justify-content: space-evenly;
 `
 
@@ -59,17 +75,23 @@ const GridItem = styled.div`
     height: 100%;
     color: white;
     border-radius: 20px;
-    grid-area: ${props => props.one && 'one'};
-    grid-area: ${props => props.two && 'two'};
-    grid-area: ${props => props.three && 'three'};
-    grid-area: ${props => props.four && 'four'};
-    grid-area: ${props => props.five && 'five'};
+    grid-area: ${props => props.index === 0 && 'one'};
+    grid-area: ${props => props.index === 1 && 'two'};
+    grid-area: ${props => props.index === 2 && 'three'};
+    grid-area: ${props => props.index === 3 && 'four'};
+    grid-area: ${props => props.index === 4 && 'five'};
+    grid-area: ${props => props.index === 5 && 'six'};
+    grid-area: ${props => props.index === 6 && 'seven'};
+    grid-area: ${props => props.index === 7 && 'eight'};
+    grid-area: ${props => props.index === 8 && 'nine'};
+    grid-area: ${props => props.index === 9 && 'ten'};
 `
 
 const Img = styled.img`
     width: 100%;
-    height: 140px;
-    /* height: ${props => props.sm && '140px'}; */
-    height: ${props => props.lg && '300px'};
+    height: 100%;
+    min-height: 120px;
+    height: ${props => props.index === 0 && '280px'};
     border-radius: 20px;
+    object-fit: cover;
 ` 

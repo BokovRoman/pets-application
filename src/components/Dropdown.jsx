@@ -70,17 +70,17 @@ const DropDownHeader = styled("div")`
 const DropDownListContainer = styled("div")``;
 
 const DropDownList = styled("ul")`
-    position: fixed; 
+     position: sticky;
     margin-top: 10px;
     padding: 20px;
-    width: ${props => props.md && '210px'};
-    width: ${props => props.lg && '290px'};
+    width: ${props => props.md && '200px'};
+    width: ${props => props.lg && '260px'};
     border-radius: 10px;
     box-sizing: border-box;
     cursor: pointer;
     font-size: 16px;
-    color: #8C8C8C;
-    background-color: ${props => props.theme.bgBox};
+    background-color: ${props => props.theme.bgSort};
+    color: ${props => props.theme.textSec};
     
   &:first-child {
     padding-top: 0.8em;

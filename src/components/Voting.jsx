@@ -119,7 +119,8 @@ const Wrapper = styled.div`
 const Img = styled.img`
     border-radius: 20px;
     width: 100%;
-    height: auto;
+    max-height: 30rem;
+    object-fit: cover;
 ` 
 
 const Flexbox = styled.div`

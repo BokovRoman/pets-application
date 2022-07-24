@@ -7,23 +7,37 @@ export const CatProvider = ({ children }) => {
     const [liked, addToLiked] = useState([]);
     const [favourites, addToFav] = useState([]); 
     const [disliked, addToDisliked] = useState([]);
-    const [chunked, setChunked ] = useState([]);
-
+    const [chunked, setChunked] = useState([]);
+    const [cats, setCats] = useState({});
+    const [breeds, setBreeds] = useState({});
+    
     useEffect(() => {
-        if (liked.length > 0) {
-            const temporary = [...liked];
-            const result = []
-            while (temporary.length > 0) {
-                result.push(temporary.splice(0, 10))
-                // debugger
-            }
-            setChunked(result)
-        }
-    }, [liked]);
+    const fetchData = async () => {
+        const response = await axios('https://api.thecatapi.com/v1/images/search?limit=20');
+        setCats(response.data);
+        };
+        fetchData(cats);
+    }, []);
+
+    // Fetching breeds
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios('https://api.thecatapi.com/v1/breeds');
+            setBreeds(response.data)
+            };
+        fetchData(breeds);
+    }, []);
 
     return (
-        <CatContext.Provider value={{ likeKey: [liked, addToLiked], favKey: [favourites, addToFav], disKey: [disliked, addToDisliked], chunkedKey: [chunked, setChunked]} }> 
+        <CatContext.Provider value={{ 
+            likeKey: [liked, addToLiked], 
+            favKey: [favourites, addToFav], 
+            disKey: [disliked, addToDisliked], 
+            chunkedKey: [chunked, setChunked],
+            catsKey: [cats, setCats],
+            breedsKey: [ breeds, setBreeds ],
+            }}> 
             { children }
         </CatContext.Provider>
-    )
+       )
 }

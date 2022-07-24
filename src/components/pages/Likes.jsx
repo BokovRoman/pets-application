@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { CatContext } from '../services/CatContext';
 import Layout from '../Layout';
 import Search from '../Search'; 
@@ -9,8 +9,19 @@ import NoItemFound from '../pages/NoItemFound';
 const Likes = () => {
     const { likeKey, chunkedKey } = useContext(CatContext);
     const [liked] = likeKey;
-    const [chunked] = chunkedKey;
+    const [chunked, setChunked] = chunkedKey;
 
+    useEffect(() => {
+        if (liked.length > 0) {
+            const temporary = [...liked];
+            const result = []
+            while (temporary.length > 0) {
+                result.push(temporary.splice(0, 10))
+            }
+            setChunked(result)
+        }
+    }, [liked]);
+    
     let message;
     if ( liked.length === 0 ) {
         message = <NoItemFound/>
