@@ -14,6 +14,7 @@ export default Layout;
 const Section = styled.section`
     background: ${props => props.theme.bgMain};
     height: auto;
+    min-height: 100vh;
     max-height: ${props => props.maxH && '100vh'};
     height: ${props => props.maxH && '100vh'};
     width: 50%;

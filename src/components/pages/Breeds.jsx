@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { useEffect, useContext } from 'react';
+import axios from 'axios';
+import { useState,useEffect, useContext } from 'react';
 import { CatContext } from '../services/CatContext';
 import Search from '../Search';
 import Layout from '../Layout';
@@ -7,13 +8,38 @@ import GoBack from '../GoBack';
 import BreedsSorting from 'components/BreedsSorting';
 
 const Breeds = () => {
-    const { chunkedKey, catsKey } = useContext(CatContext);
-    const [chunked, setChunked] = chunkedKey;
+    const { catsKey, currBreedKey, limitKey, breedsKey, orderKey } = useContext(CatContext);
     const [cats, setCats] = catsKey;
+
+    const [currBreed, setCurrBreed] = currBreedKey;
+    const [limit, setLimit] = limitKey;
+    const [breeds] = breedsKey;
+    const [order, setOrder] = orderKey;
+    const [chunked, setChunked] = useState([]);
+
+    useEffect(() => {
+        const breedID = currBreed.id
+        const fetchData = async () => {
+            const response = await axios(`https://api.thecatapi.com/v1/images/search?limit=${limit}&breed_id=${breedID}`);
+            setCats(response.data)
+            };
+        fetchData(cats)
+    }, [limit]);
+
+    useEffect(() => {
+        const breedID = currBreed.id
+        const fetchData = async () => {
+            const response = await axios(`https://api.thecatapi.com/v1/images/search?limit=${limit}&breed_id=${breedID}`);
+            setCats(response.data);
+            };
+        fetchData(cats);
+    }, [currBreed]);
 
     useEffect(() => {
         if (cats.length > 0) {
-            const temporary = [...cats];
+            const filteredCats = cats.filter( cat => cat.breeds.length > 0)
+            const temporary = [...filteredCats];
+          
             const result = []
             while (temporary.length > 0) {
                 result.push(temporary.splice(0, 10))
@@ -31,13 +57,16 @@ const Breeds = () => {
                     <BreedsSorting/>
                 </span>
                 <Masonry>
-                    {chunked.map(tenCats => <Pattern>
-                        {tenCats.map((cat, index) =>
-                            <GridItem key={cat.id} index={index} >
-                                <Img src={cat.url} />
-                            </GridItem>)}
-                    </Pattern>)
-                    }
+                     {chunked.map((tenCats, index) => 
+                        <Pattern key={index}>
+                            {tenCats.map((cat, index) => 
+                                <GridItem key={cat.id} index={index} >
+                                    <Img src={cat.url} />
+                                    <Label>{cat.breeds[0].name}</Label>
+                                </GridItem>
+                                )}
+                        </Pattern>
+                    )}
                 </Masonry>
             </Wrapper>
         </Layout> 
@@ -50,8 +79,7 @@ const Wrapper = styled.div`
     background: ${props => props.theme.bgBox};
     border-radius: 20px;
     width: 100%;
-    height: 100%;
-    padding: 20px;
+    height: auto;
 
     span {
         display: flex;
@@ -61,10 +89,9 @@ const Wrapper = styled.div`
     }
 `
 const Masonry = styled.div`
-    background: ${props => props.theme.bgBox};
     border-radius: 20px;
     width: 100%;
-    height: 100%;
+    height: auto;    
     padding: 20px;
 `
 
@@ -84,7 +111,23 @@ const Pattern = styled.div`
         "nine nine ten";
     justify-content: space-evenly;
 `
+const Img = styled.img`
+    width: 100%;
+    height: 100%;
+    min-height: 120px;
+    height: ${props => props.index === 0 && '280px'};
+    border-radius: 20px;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+    
+    opacity: 1;
+    transition: all 0.4s ease;
+`
 
+const Label = styled.div`
+    display: none;
+`
 const GridItem = styled.div`
     width: 100%;
     height: 100%;
@@ -100,13 +143,36 @@ const GridItem = styled.div`
     grid-area: ${props => props.index === 7 && 'eight'};
     grid-area: ${props => props.index === 8 && 'nine'};
     grid-area: ${props => props.index === 9 && 'ten'};
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    opacity: 1;
+    transition: all 0.3s ease;
+    
+    &:hover{
+        background-color: rgba(255, 134, 142, 0.6);
+    }
+    &:hover ${Label} {
+        display: block;
+        position: absolute;
+        bottom: 10px;
+        text-align: center;
+        z-index: 100;
+        padding: 10px 5px;
+        margin-left: 10px;
+        margin-right: 10px;
+        
+        font-size: 20px;
+        text-align: center;
+        border-radius: 10px;
+        width: 93%;
+        justify-self: center;
+        background-color: ${props => props.theme.bgBreed};
+        color: #FF868E;
+    }
+    &:hover ${Img}{
+        opacity: 0.3;
+    }
 `
-
-const Img = styled.img`
-    width: 100%;
-    height: 100%;
-    min-height: 120px;
-    height: ${props => props.index === 0 && '280px'};
-    border-radius: 20px;
-    object-fit: cover;
-` 

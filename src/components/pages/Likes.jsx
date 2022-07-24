@@ -18,12 +18,12 @@ const Likes = () => {
             while (temporary.length > 0) {
                 result.push(temporary.splice(0, 10))
             }
-            setChunked(result)
+            setChunked(result);
         }
     }, [liked]);
-    
+
     let message;
-    if ( liked.length === 0 ) {
+    if ( chunked.length === 0 ) {
         message = <NoItemFound/>
     } 
 

@@ -10,6 +10,9 @@ export const CatProvider = ({ children }) => {
     const [chunked, setChunked] = useState([]);
     const [cats, setCats] = useState({});
     const [breeds, setBreeds] = useState({});
+    const [currBreed, setCurrBreed] = useState({});
+    const [limit, setLimit] = useState(10);
+    const [order, setOrder] = useState('rand');
     
     useEffect(() => {
     const fetchData = async () => {
@@ -19,7 +22,7 @@ export const CatProvider = ({ children }) => {
         fetchData(cats);
     }, []);
 
-    // Fetching breeds
+    // Fetching breeds by name
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios('https://api.thecatapi.com/v1/breeds');
@@ -30,12 +33,15 @@ export const CatProvider = ({ children }) => {
 
     return (
         <CatContext.Provider value={{ 
-            likeKey: [liked, addToLiked], 
-            favKey: [favourites, addToFav], 
-            disKey: [disliked, addToDisliked], 
-            chunkedKey: [chunked, setChunked],
-            catsKey: [cats, setCats],
+            likeKey: [ liked, addToLiked ], 
+            favKey: [ favourites, addToFav ], 
+            disKey: [ disliked, addToDisliked ], 
+            chunkedKey: [ chunked, setChunked ],
+            dogsKey: [ cats, setCats ],
             breedsKey: [ breeds, setBreeds ],
+            currBreedKey: [ currBreed, setCurrBreed ],
+            limitKey: [ limit, setLimit ],
+            orderKey: [ order, setOrder ],
             }}> 
             { children }
         </CatContext.Provider>
