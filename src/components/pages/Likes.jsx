@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState  } from 'react';
 import { CatContext } from '../services/CatContext';
 import Layout from '../Layout';
 import Search from '../Search'; 
@@ -9,7 +9,7 @@ import NoItemFound from '../pages/NoItemFound';
 const Likes = () => {
     const { likeKey, chunkedKey } = useContext(CatContext);
     const [liked] = likeKey;
-    const [chunked, setChunked] = chunkedKey;
+    const [chunked, setChunked] = useState([]);
 
     useEffect(() => {
         if (liked.length > 0) {
@@ -33,8 +33,7 @@ const Likes = () => {
             <Wrapper>
                 <GoBack btnContent="Likes" />
                 {message}
-                {chunked.map(tenCats =>
-                    <Pattern>
+                {chunked.map((tenCats, index) => <Pattern key={index}>
                         {tenCats.map((cat, index) =>
                             <GridItem key={cat.id} index={index} >
                                 <Img src={cat.url} />

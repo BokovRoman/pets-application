@@ -17,7 +17,7 @@ export const GalleryProvider = ({ children }) => {
             limitKey: [ limit, setLimit ],
             orderKey: [ order, setOrder ],
             dogsKey: [ cats, setCats ],
-            typeKey: [ type,  setType ]
+            typeKey: [ type,  setType ],
             }}> 
             { children }
         </GalleryContext.Provider>

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useEffect,useContext } from 'react';
+import { useEffect,useContext, useState  } from 'react';
 import { CatContext } from '../services/CatContext';
 import Layout from '../Layout';
 import Search from '../Search'; 
@@ -9,7 +9,7 @@ import NoItemFound from './NoItemFound';
 const Dislikes = () => {
     const { disKey, chunkedKey  } = useContext(CatContext);
     const [disliked] = disKey;
-    const [chunked, setChunked] = chunkedKey;
+    const [chunked, setChunked] = useState([]);
 
     useEffect(() => {
         if (disliked.length > 0) {
@@ -33,7 +33,7 @@ const Dislikes = () => {
             <Wrapper>
                 <GoBack btnContent="Disliked" />
                 {message}
-                {chunked.map(tenCats => <Pattern>
+                {chunked.map((tenCats, index) => <Pattern key={index}>
                     {tenCats.map((cat, index) =>
                         <GridItem key={cat.id} index={index} >
                             <Img src={cat.url} />

@@ -9,6 +9,8 @@ export const lightTheme = {
     bgSort: "#F8F8F7",
     bgBreed: "#FFFFFF",
     bgGaleryFilters: "#FFFFFF",
+    bgPopup: "#F8F8F7",
+    bgDroparea: "#FFFFFF",
   };
 
 export const darkTheme = {
@@ -22,4 +24,7 @@ export const darkTheme = {
     bgSort: "rgba(255, 255, 255, 0.05)",
     bgBreed: "rgba(40, 40, 40, 1)",
     bgGaleryFilters: "#1D1D1D",
+    bgPopup: "282828",
+    bgDroparea: "rgba(255, 255, 255, 0.05)",
+
 }

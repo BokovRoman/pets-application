@@ -9,6 +9,7 @@ export const CatProvider = ({ children }) => {
     const [disliked, addToDisliked] = useState([]);
     const [chunked, setChunked] = useState([]);
     const [log, setLog] = useState([]);
+    const [active, setActive] = useState(false); 
     const [cats, setCats] = useState({});
     const [breeds, setBreeds] = useState({});
     const [currBreed, setCurrBreed] = useState({});
