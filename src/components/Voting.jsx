@@ -8,10 +8,11 @@ import { CatContext } from './services/CatContext';
 import Action from './Action';
     
 const Voting = ({ like, fav, disl }) => {
+
+    const { likeKey, favKey, disKey, logKey } = useContext(CatContext);
     const [randomCat, setRandomCat] = useState({});
     const [active, setActive] = useState(false);
-    const [log, setLog] = useState([]);
-    const { likeKey, favKey, disKey } = useContext(CatContext);
+    const [log, setLog] = logKey;
     const [liked, addToLiked] = likeKey;
     const [favourites, addToFav] = favKey;
     const [disliked, addToDisliked] = disKey;

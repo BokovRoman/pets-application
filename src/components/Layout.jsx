@@ -20,6 +20,6 @@ const Section = styled.section`
     width: 50%;
     padding: 1.8rem;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: ${props => props.flexCol ? 'column' : 'row'}
 `

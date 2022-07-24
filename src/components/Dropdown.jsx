@@ -1,34 +1,45 @@
 import { useState } from 'react'
 import styled from 'styled-components';
-import axios from 'axios';
 
 
 
-const Dropdown = ({label, title, sm }) => {
-    const [ orderOpen, setOrderOpen ] = useState(false)
+const Dropdown = ({label, title, sm, content }) => {
+    const [isOpen, setIsOpen] = useState(false);
 
-    const openFilter = (filter) => {
-        if (filter === 'order') {
-            setOrderOpen(!orderOpen)
-        }
+    const openFilter = () => {
+        setIsOpen(!isOpen)
+    }
+
+    const handleMouseLeave = () => {
+        setIsOpen(false);
+    }
+
+    const handleMouseOver = () => {
+        setIsOpen(false);
+    }
+
+    let firstChild;
+    if (label === 'breed') {
+        firstChild = <ListItem>None</ListItem>
     }
 
     return (
                 <Main sm={sm}>
-                    <DropDownContainer md onClick={ () => openFilter('order')}>
+                    <DropDownContainer md onClick={ openFilter } onMouseIn={ handleMouseOver }>
                         <span>{label}</span>
-                        <DropDownHeader > 
+                        <DropDownHeader onMouseOver={ handleMouseOver }> 
                             <p>{title}</p>
                             <svg viewBox="0 0 12 12"> 
-                                    <path d="M6.59406 9.17405L11.7538 4.01423C12.0821 3.68603 12.0821 3.15383 11.7538 2.82575C11.4256 2.49767 10.8935 2.49767 10.5655 2.82575L5.99993 7.39142L1.43458 2.82593C1.10635 2.49779 0.574264 2.49779 0.24617 2.82593C-0.0820567 3.15401 -0.0820567 3.68615 0.24617 4.01435L5.40591 9.17418C5.57003 9.33824 5.78492 9.42017 5.9999 9.42017C6.21498 9.42017 6.43002 9.33807 6.59406 9.17405Z"></path>
-                                </svg>
+                                <path d="M6.59406 9.17405L11.7538 4.01423C12.0821 3.68603 12.0821 3.15383 11.7538 2.82575C11.4256 2.49767 10.8935 2.49767 10.5655 2.82575L5.99993 7.39142L1.43458 2.82593C1.10635 2.49779 0.574264 2.49779 0.24617 2.82593C-0.0820567 3.15401 -0.0820567 3.68615 0.24617 4.01435L5.40591 9.17418C5.57003 9.33824 5.78492 9.42017 5.9999 9.42017C6.21498 9.42017 6.43002 9.33807 6.59406 9.17405Z"></path>
+                            </svg>
                         </DropDownHeader>
-                        {orderOpen && (
+                        {isOpen && (
                             <DropDownListContainer>
-                            <DropDownList md >
-                                <ListItem > Random</ListItem>
-                                <ListItem > Desc</ListItem>
-                                <ListItem > Asc</ListItem>
+                            <DropDownList md onMouseLeave={handleMouseLeave} >
+                                {firstChild}
+                                {   
+                                    content.map( item => <ListItem key={item.id} >{item.name}</ListItem>)
+                                }
                             </DropDownList>
                             </DropDownListContainer>
                         )}
@@ -97,6 +108,7 @@ const DropDownList = styled.ul`
     cursor: pointer;
     box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.02);
     position: absolute;
+    overflow-y: scroll;
     min-width: 100%;
     background-color: ${props => props.theme.bgGaleryFilters};
     color: ${props => props.theme.textSec};

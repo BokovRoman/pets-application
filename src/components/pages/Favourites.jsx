@@ -30,7 +30,7 @@ const Favorites = () => {
         <Layout flexCol>
             <Search />
             <Wrapper>
-                <GoBack btnContent="Likes"/>
+                <GoBack btnContent="Favourites"/>
                  { message }
                 {chunked.map(tenCats => <Pattern>
                     {tenCats.map((cat, index) =>

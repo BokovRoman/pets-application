@@ -1,5 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { CatContext } from '../services/CatContext';
+import { GalleryContext } from '../services/GalleryContext';
+
 import styled from 'styled-components';
 import axios from 'axios';
 import Search from '../Search'; 
@@ -10,12 +12,13 @@ import GallerySort from '../GallerySort';
 
 
 const Gallery = () => {
-    const [cats, setCats] = useState({});
-    const [chunked, setChunked] = useState([]);
+    const { catsKey, chunkedKey } = useContext(GalleryContext);
+    const [cats, setCats] = catsKey;    
+    const [chunked, setChunked] = chunkedKey;
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios('https://api.thecatapi.com/v1/images/search?limit=20');
+            const response = await axios('https://api.thecatapi.com/v1/images/search?limit=10');
             setCats(response.data);
             };
         fetchData(cats);
@@ -48,10 +51,15 @@ const Gallery = () => {
                 </Container>
                 <GallerySort />
                 <Masonry>
-                    {chunked.map(tenCats => <Pattern>
+                    {chunked.map(tenCats => <Pattern key={Math.random()}>
                         {tenCats.map((cat, index) =>
                             <GridItem key={cat.id} index={index} >
-                                <Img src={cat.url} />
+                                <Img key={cat.id} src={cat.url} />
+                                <Label>
+                                    <svg viewBox="0 0 30 30"> 
+                                        <path d="M8.07107 2C4.71811 2 2 4.71811 2 8.07107C2 9.68122 2.63963 11.2254 3.77817 12.364L15 23.5858L26.2218 12.364C27.3604 11.2254 28 9.68121 28 8.07107C28 4.71811 25.2819 2 21.9289 2C20.3188 2 18.7746 2.63963 17.636 3.77817L15.7071 5.70711C15.3166 6.09763 14.6834 6.09763 14.2929 5.70711L12.364 3.77818C11.2254 2.63963 9.68121 2 8.07107 2ZM0 8.07107C0 3.61354 3.61354 0 8.07107 0C10.2116 0 12.2646 0.850343 13.7782 2.36396L15 3.58579L16.2218 2.36396C17.7354 0.850341 19.7884 0 21.9289 0C26.3865 0 30 3.61354 30 8.07107C30 10.2116 29.1497 12.2646 27.636 13.7782L15.7071 25.7071C15.3166 26.0976 14.6834 26.0976 14.2929 25.7071L2.36396 13.7782C0.850339 12.2646 0 10.2116 0 8.07107Z"></path>
+                                    </svg>
+                                </Label>
                             </GridItem>)}
                     </Pattern>)
                     }
@@ -77,6 +85,28 @@ const Container = styled.div`
     justify-content: space-between;
 `
 
+const Img = styled.img`
+    width: 100%;
+    height: 100%;
+    min-height: 120px;
+    height: ${props => props.index === 0 && '280px'};
+    border-radius: 20px;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+    opacity: 1;
+    transition: all 0.4s ease;
+`
+
+const Label = styled.div`
+    display: none;
+    svg {
+        width: 20px;
+        height: 20px;
+        fill: #FF868E;
+    }
+`
+
 const Upload = styled.button`
     border-radius: 10px;
     border: none;
@@ -95,7 +125,6 @@ const Upload = styled.button`
         background: #FF868E;
         color: #FFFFFF;
     }
-@@ -168,44 +115,26 @@
     svg {
         fill: #FF868E;
         width: 16px;
@@ -106,6 +135,7 @@ const Upload = styled.button`
         fill: #FFFFFF;
     }
 `
+
 const Flex = styled(Container)`
     padding: 10px;
     justify-content: space-evenly;
@@ -153,12 +183,27 @@ const GridItem = styled.div`
     grid-area: ${props => props.index === 7 && 'eight'};
     grid-area: ${props => props.index === 8 && 'nine'};
     grid-area: ${props => props.index === 9 && 'ten'};
-`
-const Img = styled.img`
-    width: 100%;
-    height: 100%;
-    min-height: 120px;
-    height: ${props => props.index === 0 && '280px'};
-    border-radius: 20px;
-    object-fit: cover;
+    position: relative;
+    &:hover{
+        background-color: rgba(255, 134, 142, 0.6);
+    }
+    &:hover ${Label} {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 40%;
+        left: 40%;
+        width: 40px;
+        height: 40px;
+        z-index: 100;
+        padding: 10px 5px;
+        border-radius: 10px;
+    
+        background-color: ${props => props.theme.bgBreed};
+        color: #FF868E;
+    }
+    &:hover ${Img}{
+        opacity: 0.3;
+    }
 `

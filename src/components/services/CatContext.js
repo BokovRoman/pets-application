@@ -8,19 +8,20 @@ export const CatProvider = ({ children }) => {
     const [favourites, addToFav] = useState([]); 
     const [disliked, addToDisliked] = useState([]);
     const [chunked, setChunked] = useState([]);
+    const [log, setLog] = useState([]);
     const [cats, setCats] = useState({});
     const [breeds, setBreeds] = useState({});
     const [currBreed, setCurrBreed] = useState({});
     const [limit, setLimit] = useState(10);
     const [order, setOrder] = useState('rand');
     
-    useEffect(() => {
-    const fetchData = async () => {
-        const response = await axios('https://api.thecatapi.com/v1/images/search?limit=20');
-        setCats(response.data);
-        };
-        fetchData(cats);
-    }, []);
+    // useEffect(() => {
+    // const fetchData = async () => {
+    //     const response = await axios('https://api.thecatapi.com/v1/images/search?limit=20');
+    //     setCats(response.data);
+    //     };
+    //     fetchData(cats);
+    // }, []);
 
     // Fetching breeds by name
     useEffect(() => {
@@ -29,7 +30,7 @@ export const CatProvider = ({ children }) => {
             setBreeds(response.data)
             };
         fetchData(breeds);
-    }, []);
+    }, [breeds]);
 
     return (
         <CatContext.Provider value={{ 
@@ -42,6 +43,7 @@ export const CatProvider = ({ children }) => {
             currBreedKey: [ currBreed, setCurrBreed ],
             limitKey: [ limit, setLimit ],
             orderKey: [ order, setOrder ],
+            logKey: [ log, setLog ]
             }}> 
             { children }
         </CatContext.Provider>

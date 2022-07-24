@@ -1,45 +1,33 @@
 import styled from 'styled-components';
 import axios from 'axios';
-import { useState,useEffect, useContext } from 'react';
-import { CatContext } from '../services/CatContext';
+import { useEffect, useContext } from 'react';
+import { BreedsContext } from '../services/BreedsContext';
 import Search from '../Search';
 import Layout from '../Layout';
 import GoBack from '../GoBack';
 import BreedsSorting from 'components/BreedsSorting';
 
 const Breeds = () => {
-    const { catsKey, currBreedKey, limitKey, breedsKey, orderKey } = useContext(CatContext);
-    const [cats, setCats] = catsKey;
 
-    const [currBreed, setCurrBreed] = currBreedKey;
-    const [limit, setLimit] = limitKey;
-    const [breeds] = breedsKey;
-    const [order, setOrder] = orderKey;
-    const [chunked, setChunked] = useState([]);
+    const { chunkedKey, currBreedKey, limitKey, orderKey, catsKey } = useContext(BreedsContext);
+    const [chunked, setChunked] = chunkedKey;
+    const [currBreed] = currBreedKey;
+    const [limit] = limitKey;
+    const [cats, setCats] = catsKey;  
 
     useEffect(() => {
         const breedID = currBreed.id
         const fetchData = async () => {
-            const response = await axios(`https://api.thecatapi.com/v1/images/search?limit=${limit}&breed_id=${breedID}`);
-            setCats(response.data)
-            };
-        fetchData(cats)
-    }, [limit]);
-
-    useEffect(() => {
-        const breedID = currBreed.id
-        const fetchData = async () => {
-            const response = await axios(`https://api.thecatapi.com/v1/images/search?limit=${limit}&breed_id=${breedID}`);
+            const response = await axios(`https://api.thecatapi.com/v1/images/search?limit=${limit}&breed_id=${breedID ? breedID : ''}`);
             setCats(response.data);
             };
         fetchData(cats);
-    }, [currBreed]);
+    }, [limit, currBreed]);
 
     useEffect(() => {
         if (cats.length > 0) {
             const filteredCats = cats.filter( cat => cat.breeds.length > 0)
             const temporary = [...filteredCats];
-          
             const result = []
             while (temporary.length > 0) {
                 result.push(temporary.splice(0, 10))
@@ -50,25 +38,25 @@ const Breeds = () => {
     
     return (
         <Layout flexCol> 
-            <Search />
-            <Wrapper>
-                <span>
-                    <GoBack btnContent="Breeds" />
-                    <BreedsSorting/>
-                </span>
-                <Masonry>
-                     {chunked.map((tenCats, index) => 
-                        <Pattern key={index}>
-                            {tenCats.map((cat, index) => 
-                                <GridItem key={cat.id} index={index} >
-                                    <Img src={cat.url} />
-                                    <Label>{cat.breeds[0].name}</Label>
-                                </GridItem>
-                                )}
-                        </Pattern>
-                    )}
-                </Masonry>
-            </Wrapper>
+             <Search />
+                <Wrapper>
+                    <span>
+                        <GoBack btnContent="Breeds" /> 
+                        <BreedsSorting />
+                    </span>
+                    <Masonry>
+                        {chunked.map((tenCats, index) => 
+                            <Pattern key={index}>
+                                {tenCats.map((cat, index) => 
+                                    <GridItem key={cat.id} index={index} >
+                                        <Img src={cat.url} />
+                                        <Label>{cat.breeds[0].name}</Label>
+                                    </GridItem>
+                                    )}
+                            </Pattern>
+                        )}
+                    </Masonry>
+                </Wrapper>
         </Layout> 
     )
 }
@@ -79,7 +67,7 @@ const Wrapper = styled.div`
     background: ${props => props.theme.bgBox};
     border-radius: 20px;
     width: 100%;
-    height: auto;
+    height: 100%;
 
     span {
         display: flex;

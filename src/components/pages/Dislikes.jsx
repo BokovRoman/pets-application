@@ -31,7 +31,7 @@ const Dislikes = () => {
         <Layout flexCol>
             <Search />
             <Wrapper>
-                <GoBack btnContent="Liked" />
+                <GoBack btnContent="Disliked" />
                 {message}
                 {chunked.map(tenCats => <Pattern>
                     {tenCats.map((cat, index) =>
