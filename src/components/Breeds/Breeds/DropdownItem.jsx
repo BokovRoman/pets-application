@@ -1,60 +1,50 @@
-import { useState,  useContext, useEffect} from 'react'
-import styled from 'styled-components';
-import { lightTheme, darkTheme } from '../theme/theme';
-import FilterItems from './FilterItems';
-import { GalleryContext } from './services/GalleryContext';
-
-const Dropdown = ({label, title, xs, sm, content, gray, ml, setState }) => {
-
-    const {
-    orderTitleKey,
-    typeTitleKey,
-    currBreedTitleKey, 
-    limitTitleKey,
-    currBreedKey
-  } = useContext( GalleryContext );
-
-    const [orderTitle, setOrderTitle] = orderTitleKey;
-    const [typeTitle, setTypeTitle] = typeTitleKey;
-    const [currBreedTitle, setCurrBreedTitle] = currBreedTitleKey;
-    const [limitTitle, setLimitTitle] = limitTitleKey;
-    const [currBreed, setCurrBreed] = currBreedKey;
-
+import { useState, useContext, useEffect } from "react";
+import styled from "styled-components";
+import { lightTheme, darkTheme } from '../../theme/theme';
+import { BreedsContext } from "../../services/BreedsContext";
+import FilterItems from "../FilterItemsBreeds";
+const DropdownItem = ({ label, title, xs, sm, content, gray, ml, setState }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { handleFilterClick } = FilterItems();
-
-    const openFilter = () => {
-        setIsOpen(!isOpen)
-    }
-
-    const handleMouseLeave = () => {
+  
+  const {
+    currBreedKey,
+    limitKey,
+    breedTitleKey,
+    limitTitleKey, 
+  } = useContext(BreedsContext); 
+  const [currBreed, setCurrBreed] = currBreedKey;
+  const [limit, setLimit] = limitKey;
+  const [breedTitle, setBreedTitle] = breedTitleKey;
+  const [limitTitle, setLimitTitle] = limitTitleKey;
+  
+  const openFilter = () => {
+    setIsOpen(!isOpen);
+  };
+  const handleMouseLeave = () => {
     setIsOpen(false); 
   };
+  const handleMouseOver = () => {
+    setIsOpen(false);
+  };
 
-    const handleMouseOver = () => {
-        setIsOpen(false);
-    };
-
-    
-    let firstChild;
-    if (label === "breed") {
-    firstChild = <ListItem onClick={() => resetBreed()} >None</ListItem>;   
-  }
-
-  const resetBreed = () => {
+    const reset = () => { 
+    setLimit(10);
     setCurrBreed({ id: "", name: "" });
-    setCurrBreedTitle("None")
-  }
-
-      return (
+    };
+    
+  let firstChild;
+  if (title === "All breeds") {
+    firstChild = <ListItem onClick={reset} >None</ListItem>;
+    }
+    
+  return (
     <Main sm={sm} xs={xs} ml={ml}>
       <DropDownContainer md onClick={openFilter} gray={gray}>
         <span>{label}</span>
         <DropDownHeader gray={gray} >
-            { label === "order" && <p>{orderTitle}</p>}
-            { label === "type" && <p>{typeTitle}</p>}
-            { label === "breed" && <p>{currBreedTitle}</p>}
-            { label === "limit" && <p>{limitTitle}</p>}
+          { title === "All breeds" && <p>{breedTitle}</p>}
+          { title === "Limit: 10" && <p>Limit: {limitTitle}</p>}
           <svg viewBox="0 0 12 12">
             <path d="M6.59406 9.17405L11.7538 4.01423C12.0821 3.68603 12.0821 3.15383 11.7538 2.82575C11.4256 2.49767 10.8935 2.49767 10.5655 2.82575L5.99993 7.39142L1.43458 2.82593C1.10635 2.49779 0.574264 2.49779 0.24617 2.82593C-0.0820567 3.15401 -0.0820567 3.68615 0.24617 4.01435L5.40591 9.17418C5.57003 9.33824 5.78492 9.42017 5.9999 9.42017C6.21498 9.42017 6.43002 9.33807 6.59406 9.17405Z"></path>
           </svg>
@@ -62,12 +52,10 @@ const Dropdown = ({label, title, xs, sm, content, gray, ml, setState }) => {
         {isOpen && (
           <DropDownListContainer >
             <DropDownList xs={xs} onMouseLeave={handleMouseLeave}>
-
               {firstChild}
               {content.map((item) => (
-                <ListItem onClick={() => handleFilterClick(label, item)} key={item.id}>{item.name}</ListItem>
+                <ListItem onClick={() => handleFilterClick(title, item)} key={item.id}>{item.name}</ListItem>
               ))}
-
             </DropDownList>
           </DropDownListContainer>
         )}
@@ -75,18 +63,21 @@ const Dropdown = ({label, title, xs, sm, content, gray, ml, setState }) => {
     </Main>
   );
 };
-
-export default Dropdown;
+export default DropdownItem;
 
 const Main = styled.div`
+  margin: 5px 10px;
   transition: all 0.3s ease;
   width: 100%;
+  width: ${(props) => props.sm && "100%"};
+  width: ${(props) => props.xs && "60%"};
+  margin: ${(props) => props.ml && "0px 0px 0px 10px"};
 `;
 
 const DropDownContainer = styled.div`
+min-width: 100%;
 
-  min-width: 100%;
-  span {
+span {
     color: #8c8c8c;
     font-size: 10px;
     text-transform: uppercase;
@@ -94,12 +85,13 @@ const DropDownContainer = styled.div`
     line-height: 2;
   }
 `;
-
 const DropDownHeader = styled.div`
   height: 40px;
   margin-left: 0px;
-  background-color: ${(props) => props.theme.bgGaleryFilters};
-  color: ${(props) => props.theme.textPrim};
+  background-color: ${(props) => props.gray && "#F8F8F7"};
+  color: ${(props) => props.gray && "#8C8C8C"};
+  background-color: ${(props) => props.theme === darkTheme && "rgba(255, 255, 255, 0.05)"};
+  color: ${(props) => props.theme === darkTheme && "#8C8C8C"};
   padding: 0px 10px;
   border-radius: 10px;
   border: 2px solid rgba(255, 134, 142, 0);
@@ -118,12 +110,10 @@ const DropDownHeader = styled.div`
     border: 2px solid #fbe0dc;
   }
 `;
-
 const DropDownListContainer = styled.div`
   position: relative;
   z-index: 99;
 `;
-
 const DropDownList = styled.ul`
   margin-top: 10px;
   padding: 1px 20px;
@@ -148,7 +138,6 @@ const DropDownList = styled.ul`
     background-color: #404040;
   }
 `;
-
 const ListItem = styled.li`
   list-style: none;
   margin-bottom: 1em;

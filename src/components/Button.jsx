@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-const Button = ({btnContent, hidden, onClick}) => {
+const Button = ({btnContent, hidden, onClick,  bgText, noHover}) => {
     return (
         <Div hidden={hidden}>
-            <Btn onClick={onClick} >{btnContent}</Btn>
+            <Btn bgText={bgText} noHover={noHover} onClick={onClick} >{btnContent}</Btn>
         </Div>
     )
 }
@@ -27,6 +27,7 @@ const Btn = styled.button`
     margin-left: 10px;
     color: white;
     font-size: 12px;
+    font-size: ${ props => props.bgText && "20px"};
     text-transform: uppercase;
     letter-spacing: 2px;
     border-radius: 10px;
@@ -36,4 +37,8 @@ const Btn = styled.button`
     justify-content: center;
     align-items: center;
     transition: all 0.3s ease;
+    &:hover {
+    background: ${ props => props.noHover ? "#FF868E": "#FBE0DC"};
+    color: ${ props => props.noHover ? "#FFFFFF": "#FF868E"}
+  }
 ` 

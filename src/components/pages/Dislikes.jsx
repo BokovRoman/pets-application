@@ -5,19 +5,23 @@ import Layout from '../Layout';
 import Search from '../Search'; 
 import GoBack from '../GoBack';
 import NoItemFound from './NoItemFound';
+import Loader from 'components/Loader';
 
 const Dislikes = () => {
-    const { disKey, chunkedKey  } = useContext(CatContext);
+    const { disKey } = useContext(CatContext);
     const [disliked] = disKey;
     const [chunked, setChunked] = useState([]);
+     const [ loading, setLoading ] = useState();
 
     useEffect(() => {
         if (disliked.length > 0) {
+            setLoading(true);
             const temporary = [...disliked];
             const result = []
             while (temporary.length > 0) {
                 result.push(temporary.splice(0, 10))
             }
+             setLoading(false);
             setChunked(result);
         }
     }, [disliked]);
@@ -27,23 +31,34 @@ const Dislikes = () => {
         message = <NoItemFound />
     }  
 
+
     return (
         <Layout flexCol>
-            <Search />
-            <Wrapper>
-                <GoBack btnContent="Disliked" />
-                {message}
-                {chunked.map((tenCats, index) => <Pattern key={index}>
-                    {tenCats.map((cat, index) =>
-                        <GridItem key={cat.id} index={index} >
-                            <Img src={cat.url} />
-                        </GridItem>)}
-                </Pattern>)
-            }
-            </Wrapper>
+        <Search />
+        <Wrapper>
+            <GoBack btnContent="Disliked" />
+            {message}
+
+            { loading ? (
+                <Loader />
+            ) : (
+            <>
+                {chunked.map((tenCats, index) => (
+                <Pattern key={index}>
+                    {tenCats.map((cat, index) => (
+                    <GridItem key={cat.id} index={index}>
+                        <Img src={cat.url} />
+                    </GridItem>
+                    ))}
+                </Pattern>
+                ))}
+            </>
+            ) }
+
+        </Wrapper>
         </Layout>
-    )
-}
+    );
+    };
 
 export default Dislikes;
 

@@ -24,7 +24,7 @@ const UploadModal = ({ open, onClose }) => {
 
     const images = files.map( file => (
         <div key={file.name}>
-            <img src={file.preview} style={{ maxHeight: '280px', borderRadius: '10px', objectFit: 'contain' }} />
+            <img src={file.preview} alt={file.name}  style={{ maxHeight: '280px', borderRadius: '10px', objectFit: 'contain' }} />
         </div>
     ))
 
@@ -40,7 +40,7 @@ const UploadModal = ({ open, onClose }) => {
         let fd = new FormData();
 
         files.map((file) => {
-        fd.append('File[]',file);
+        fd.append("file",file);
         });
 
         axios.post('https://api.thecatapi.com/v1/images/upload', fd, config)
@@ -63,7 +63,7 @@ const UploadModal = ({ open, onClose }) => {
                         <path d="M8.05691 8.99997L0.52832 1.47137L1.47113 0.528564L8.99972 8.05716L16.5283 0.528564L17.4711 1.47137L9.94253 8.99997L17.4711 16.5286L16.5283 17.4714L8.99972 9.94278L1.47113 17.4714L0.52832 16.5286L8.05691 8.99997Z"></path>
                     </svg>
                 </CloseBtn>
-                <h1>Upload a .jpg or .png Dog Image</h1>
+                <h1>Upload a .jpg or .png Cat Image</h1>
                 <p>Any uploads must comply with the <a href="https://www.thecatapi.com/privacy" target="_blank" rel="noreferrer" >upload guidelines</a> or face deletion.</p>
                 <DropArea {...getRootProps()}>
                     <div>

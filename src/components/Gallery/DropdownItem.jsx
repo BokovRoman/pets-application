@@ -1,8 +1,8 @@
 import { useState,  useContext, useEffect} from 'react'
 import styled from 'styled-components';
-import { lightTheme, darkTheme } from '../theme/theme';
-import FilterItems from './FilterItems';
-import { GalleryContext } from './services/GalleryContext';
+import { lightTheme, darkTheme } from '../../theme/theme';
+import FilterItems from './FilterItemsGallery';
+import { GalleryContext } from '../services/GalleryContext';
 
 const Dropdown = ({label, title, xs, sm, content, gray, ml, setState }) => {
 

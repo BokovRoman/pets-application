@@ -41,7 +41,7 @@ const NavItem = ({imgSrc, btnContent, url,alt, green, yellow, path}) => {
 export default NavItem;
 
 const Div = styled.div`
-    background-color: #B4B7FF;
+    background-color: #b4b7ff;
     background-color: ${props => props.green && '#97EAB9'};
     background-color: ${props => props.yellow && '#FFD280'};
     width: 138px;

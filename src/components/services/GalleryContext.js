@@ -6,19 +6,17 @@ export const GalleryProvider = ({ children }) => {
     const [cats, setCats] = useState({});
     const [chunked, setChunked] = useState([]);
     const [order, setOrder] = useState('rand');
-    const [type, setType] = useState('rand');
+    const [type, setType] = useState('static');
     const [currBreed, setCurrBreed] = useState({});
-    const [limit, setLimit] = useState(10);
+    const [limit, setLimit] = useState(5);
 
     return (
         <GalleryContext.Provider value={{ 
-            chunkedKey: [ chunked, setChunked ],
             currBreedKey: [ currBreed, setCurrBreed ],
             limitKey: [ limit, setLimit ],
-            orderKey: [ order, setOrder ],
-            dogsKey: [ cats, setCats ],
-            typeKey: [ type,  setType ],
-            }}> 
+            catsKey: [ cats, setCats ],
+            chunkedKey: [chunked, setChunked],
+        }}> 
             { children }
         </GalleryContext.Provider>
     )

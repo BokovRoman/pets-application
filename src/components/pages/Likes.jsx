@@ -7,7 +7,7 @@ import GoBack from '../GoBack';
 import NoItemFound from '../pages/NoItemFound';
 
 const Likes = () => {
-    const { likeKey, chunkedKey } = useContext(CatContext);
+    const { likeKey } = useContext(CatContext);
     const [liked] = likeKey;
     const [chunked, setChunked] = useState([]);
 

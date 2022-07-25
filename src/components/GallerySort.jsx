@@ -1,19 +1,32 @@
 import { useContext } from 'react'
 import { CatContext } from './services/CatContext';
 import styled from 'styled-components';
-import axios from 'axios';
-import Item from './Dropdown';
-import Filter from './Filters';
+import Item from './Gallery/DropdownItem';
+import FilterItems from './FilterItems';
 
-const GallerySort = () => {
+const GallerySort = ({handleReload}) => {
 
     const { breedsKey } = useContext(CatContext);
     const [breeds] = breedsKey;
+    const { handleFilterClick, handleMainAction } = FilterItems();
     
-    const orderContent = [{ id: 1, name: 'Random' }, { id: 2, name: 'Desc' }, { id: 3, name: 'Asc' }];
-    const typeContent = [{ id: 1, name: 'All' }, { id: 2, name: 'Static' }, { id: 3, name: 'Animated' }];
+    const orderContent = [
+        { id: 1, name: "Random", state: "rand" },
+        { id: 2, name: "Desc", state: "desc" },
+        { id: 3, name: "Asc", state: "asc" }, 
+    ];
+    const typeContent = [
+         { id: 1, name: "All", state: "gif,jpg,png" },
+        { id: 2, name: "Static", state: "jpg,png" },
+        { id: 3, name: "Animated", state: "gif" },
+    ];
     const breedContent = breeds;
-    const limitContent = [{ id: 1, name: '5 items per page' }, { id: 1, name: '10 items per page' }, { id: 1, name: '15 items per page' }, { id: 1, name: '20 items per page' }];
+    const limitContent = [
+        { id: 1, name: "5 items per page", state: 5 },
+        { id: 2, name: "10 items per page", state: 10 },
+        { id: 3, name: "15 items per page", state: 15 },
+        { id: 4, name: "20 items per page", state: 20 },
+    ];
 
     return (
         <Container>
@@ -30,7 +43,7 @@ const GallerySort = () => {
                 <GridItem four >
                     <ItemFlex>
                         <Item sm label="limit" title="5 items per page" content={limitContent}/> 
-                        <ResetBtn> 
+                        <ResetBtn onClick={() => handleReload()}> 
                             <svg viewBox="0 0 20 20"> 
                                 <path fillRule="evenodd" clipRule="evenodd" d="M9.48189 2.49989L7.93396 0.953004L8.88633 0L12.0577 3.16928L8.88634 6.33873L7.93395 5.38576L9.47232 3.84832C5.51244 3.99813 2.3473 7.25498 2.3473 11.2478C2.3473 15.3361 5.66547 18.6527 9.75744 18.6527C13.8494 18.6527 17.1676 15.3361 17.1676 11.2478V10.5742H18.5149V11.2478C18.5149 16.081 14.5927 20 9.75744 20C4.92221 20 1 16.081 1 11.2478C1 6.50682 4.77407 2.64542 9.48189 2.49989Z" ></path>
                             </svg>
@@ -45,17 +58,16 @@ const GallerySort = () => {
 export default GallerySort;
 
 const Container = styled.section`
-    background-color: #F8F8F7;
+    background-color: ${ props => props.theme.bgSort};
     border-radius: 20px;
     padding: 20px;
-    margin-bottom: 10px;
 `
 
 const Grid = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto; 
-    column-gap: 10px;
+    column-gap: 15px;
     row-gap: 10px;
     grid-template-areas: 
         "one two"
@@ -75,28 +87,30 @@ const ItemFlex = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
-    background-color: #F8F8F7;
+    background-color: #f8f8f7;
 `
 
 const ResetBtn = styled.div`
     display: flex;
     justify-content: center;
+    align-self: flex-end;
     align-items: center;
     min-height: 40px;
     min-width: 40px;
     background-color: ${props => props.theme.bgGaleryFilters};
     border-radius: 10px;
-    margin: 5px 10px;
+    margin-left: 10px;
+     cursor: pointer;
     transition: all 0.3s ease;
     svg {
         width: 20px;
         height: 20px;
-        fill: #FF868E;
+        fill: #ff868e;
     }
     &:hover  {
-        background-color: #FF868E;
+        background-color:  #ff868e;
     }
     &:hover svg {
-        fill: #FFFFFF;
+        fill: #ffffff;
     }
 `

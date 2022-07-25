@@ -1,38 +1,45 @@
 import styled from 'styled-components';
 import axios from 'axios';
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { BreedsContext } from '../services/BreedsContext';
 import Search from '../Search';
 import Layout from '../Layout';
 import GoBack from '../GoBack';
 import BreedsSorting from 'components/BreedsSorting';
+import Loader from 'components/Loader';
 
 const Breeds = () => {
 
-    const { chunkedKey, currBreedKey, limitKey, orderKey, catsKey } = useContext(BreedsContext);
+    const { chunkedKey, currBreedKey, limitKey, catsKey, orderKey  } = useContext(BreedsContext);
     const [chunked, setChunked] = chunkedKey;
     const [currBreed] = currBreedKey;
     const [limit] = limitKey;
-    const [cats, setCats] = catsKey;  
+    const [cats, setCats] = catsKey;
+    const [order] = orderKey;
+    const [ loading, setLoading ] = useState();
 
     useEffect(() => {
         const breedID = currBreed.id
         const fetchData = async () => {
-            const response = await axios(`https://api.thecatapi.com/v1/images/search?limit=${limit}&breed_id=${breedID ? breedID : ''}`);
+            setLoading(true);
+            const response = await axios(`https://api.thecatapi.com/v1/images/search?limit=${limit}&order=${order}&breed_id=${breedID ? breedID : ''}`);
             setCats(response.data);
+            setLoading(false);
             };
-        fetchData(cats);
-    }, [limit, currBreed]);
+        fetchData();
+    }, [limit, currBreed, order]);
 
     useEffect(() => {
         if (cats.length > 0) {
-            const filteredCats = cats.filter( cat => cat.breeds.length > 0)
-            const temporary = [...filteredCats];
+            setLoading(true);
+            const temporary = [...cats];
             const result = []
             while (temporary.length > 0) {
                 result.push(temporary.splice(0, 10))
             }
             setChunked(result);
+            setLoading(false);
+
         }
     }, [cats]);
     
@@ -49,8 +56,12 @@ const Breeds = () => {
                             <Pattern key={index}>
                                 {tenCats.map((cat, index) => 
                                     <GridItem key={cat.id} index={index} >
-                                        <Img src={cat.url} />
+                                        <Img src={cat.url} />   
+                                        { cat.breeds.length > 0 ? (
                                         <Label>{cat.breeds[0].name}</Label>
+                                        ) : (
+                                        <Label>No name provided</Label>
+                                        ) }
                                     </GridItem>
                                     )}
                             </Pattern>
@@ -103,7 +114,6 @@ const Img = styled.img`
     width: 100%;
     height: 100%;
     min-height: 120px;
-    height: ${props => props.index === 0 && '280px'};
     border-radius: 20px;
     object-fit: cover;
     position: relative;
@@ -118,7 +128,11 @@ const Label = styled.div`
 `
 const GridItem = styled.div`
     width: 100%;
-    height: 100%;
+    max-height: 100%;
+    max-height: ${(props) => props.index === 0 && "300px"};
+    max-height: ${(props) => props.index === 3 && "300px"};
+    max-height: ${(props) => props.index === 7 && "300px"};
+    max-height: ${(props) => props.index === 8 && "300px"};
     color: white;
     border-radius: 20px;
     grid-area: ${props => props.index === 0 && 'one'};

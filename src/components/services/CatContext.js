@@ -5,48 +5,43 @@ export const CatContext = createContext();
 
 export const CatProvider = ({ children }) => {
     const [liked, addToLiked] = useState([]);
-    const [favourites, addToFav] = useState([]); 
+    const [favourites, addToFav] = useState([]);
     const [disliked, addToDisliked] = useState([]);
     const [chunked, setChunked] = useState([]);
     const [log, setLog] = useState([]);
-    const [active, setActive] = useState(false); 
+    const [active, setActive] = useState(false);
     const [cats, setCats] = useState({});
     const [breeds, setBreeds] = useState({});
     const [currBreed, setCurrBreed] = useState({});
     const [limit, setLimit] = useState(10);
-    const [order, setOrder] = useState('rand');
+    const [order, setOrder] = useState("rand");
     
-    // useEffect(() => {
-    // const fetchData = async () => {
-    //     const response = await axios('https://api.thecatapi.com/v1/images/search?limit=20');
-    //     setCats(response.data);
-    //     };
-    //     fetchData(cats);
-    // }, []);
-
     // Fetching breeds by name
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios('https://api.thecatapi.com/v1/breeds');
-            setBreeds(response.data)
+            setBreeds(response.data);
             };
-        fetchData(breeds);
-    }, [breeds]);
+        fetchData();
+    }, []);
 
     return (
-        <CatContext.Provider value={{ 
-            likeKey: [ liked, addToLiked ], 
-            favKey: [ favourites, addToFav ], 
-            disKey: [ disliked, addToDisliked ], 
-            chunkedKey: [ chunked, setChunked ],
-            dogsKey: [ cats, setCats ],
-            breedsKey: [ breeds, setBreeds ],
-            currBreedKey: [ currBreed, setCurrBreed ],
-            limitKey: [ limit, setLimit ],
-            orderKey: [ order, setOrder ],
-            logKey: [ log, setLog ]
-            }}> 
-            { children }
-        </CatContext.Provider>
-       )
-}
+    <CatContext.Provider
+        value={{
+            likeKey: [liked, addToLiked],
+            favKey: [favourites, addToFav],
+            disKey: [disliked, addToDisliked],
+            chunkedKey: [chunked, setChunked],
+            catsKey: [cats, setCats],
+            breedsKey: [breeds, setBreeds],
+            currBreedKey: [currBreed, setCurrBreed],
+            limitKey: [limit, setLimit],
+            orderKey: [order, setOrder],
+            logKey: [log, setLog],
+            activeKey: [active, setActive],
+        }}
+    >
+      {children}
+    </CatContext.Provider>
+  );
+};

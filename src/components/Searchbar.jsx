@@ -51,7 +51,6 @@ const Input = styled.input`
 const Icon = styled.div`
     width: 40px;
     height: 40px;
-    background: #FBE0DC;
     border-radius: 10px;
     display: flex;
     justify-content: center;

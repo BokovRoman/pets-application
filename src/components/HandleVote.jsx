@@ -15,7 +15,7 @@ const HandleVote = () => {
     const { likeKey, favKey, disKey, logKey, activeKey } = useContext(CatContext);
     const [liked, addToLiked] = likeKey;
     const [favourites, addToFav] = favKey;
-    const [disliked, addToDisliked] = disKey;
+    const [disliked,addToDisliked] = disKey;
     const [log, setLog] = logKey;
     const [active, setActive] = activeKey;
 
@@ -42,9 +42,11 @@ const HandleVote = () => {
 
     const favFromGallery = (cat) => {
         if (favourites.indexOf(cat) === -1) {
+            setActive(true)
             addToFav(prevFavourites => [...prevFavourites, cat])
             console.log("Added to Favs")
         } else {
+            setActive(false)
             let index = favourites.indexOf(cat)
             let newFav = [...favourites]
             newFav.splice(index, 1);

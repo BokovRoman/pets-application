@@ -9,10 +9,9 @@ import Action from '../Action';
 import HandleVote from 'components/HandleVote';
 
 const Favorites = () => {
-    const { favKey, logKey   } = useContext(CatContext);
+    const { favKey} = useContext(CatContext);
     const [favourites, addToFav] = favKey;
     const [chunked, setChunked] = useState([]);
-    const [log, setLog] = logKey;
     const [favouritesLog, setFavouritesLog] = useState([]);
     const { getTime } = HandleVote();
 

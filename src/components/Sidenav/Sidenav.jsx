@@ -1,26 +1,28 @@
 import { useEffect, useState } from "react";
 import styled from 'styled-components';
-import logo from '../../images/logo.svg';
-import { Link, useLocation } from "react-router-dom";
+import {useLocation } from "react-router-dom";
 import votingImg from '../../images/vote-table.svg'
 import breedsImg from '../../images/pet-breeds.svg';
 import galleryImg from '../../images/images-search.svg';
 import NavItem from '../NavItem';
+import ModeToggle from "components/ModeToggle";
+import NavLogo from './Logo';
 
-const Sidenav = () => {
+const Sidenav = ({ theme , setTheme }) => {
     let location = useLocation();
     const [path, setPath] = useState(location.pathname);
 
     useEffect(() => {
         setPath(location.pathname)
     }, [location.pathname])
-
+    
     return (
         <Section>
             <Wrapper>
-                <Link to="/">
-                    <Logo src={logo} alt="logo pets-paw" />
-                </Link>
+                <Flex>
+                    <NavLogo theme={theme} />
+                    <ModeToggle theme={theme} setTheme={setTheme} />
+                </Flex>
                 <div>
                     <h1>Hi Intern!</h1>
                     <p>Welcome to MI 2022 Front-end test</p>    
@@ -48,7 +50,7 @@ const Section = styled.section`
 `
 
 const Wrapper = styled.div`
-    width: 450px;
+    width: 455px;
     margin: 2rem 8rem;
     position: fixed;
     background: ${props => props.theme.bgMain};
@@ -66,13 +68,20 @@ const Wrapper = styled.div`
     }
 `
 
-const Logo = styled.img`
-    width: 7rem;
-    height: auto;
-` 
 const Nav = styled.nav`
-    margin: 1.5rem 0rem;
+    
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-` 
+     margin: 1.5rem 0rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const Flex = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
