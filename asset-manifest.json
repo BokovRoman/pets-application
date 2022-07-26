@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.js": "/pets-application/static/js/main.ecdf37ab.js",
+    "static/media/pet-breeds.svg": "/pets-application/static/media/pet-breeds.ca527681749f755dd8feb3b118cc1317.svg",
+    "static/media/girl-and-pet.svg": "/pets-application/static/media/girl-and-pet.5033f0e3269d204b898df4f22682081c.svg",
+    "static/media/images-search.svg": "/pets-application/static/media/images-search.1eeb1973a460734eb383419b6c6d6383.svg",
+    "static/media/vote-table.svg": "/pets-application/static/media/vote-table.404997a2a95406d18a74704b3b0a6a36.svg",
+    "static/media/logo.svg": "/pets-application/static/media/logo.01c082dc0b4eb332a001651050d31448.svg",
+    "static/media/logoDarkMode.svg": "/pets-application/static/media/logoDarkMode.859c8d1c3bf254f82ddfb64867032d1e.svg",
+    "index.html": "/pets-application/index.html",
+    "main.ecdf37ab.js.map": "/pets-application/static/js/main.ecdf37ab.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.ecdf37ab.js"
+  ]
+}
