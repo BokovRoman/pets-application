@@ -1,6 +1,6 @@
-import { createGlobalStyle} from 'styled-components'
+import { createGlobalStyle } from "styled-components";
 
-const GlobalStyles = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
 html,
 body,
 div,
@@ -125,20 +125,25 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
 html {
     height: 100vh;
-     scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
+
 html, body {
     max-width: 100%;
     overflow-x: hidden;
 }
+
 * {
     box-sizing: border-box;
     font-family: "Lato", sans-serif;
     font-size: 16px;
     text-decoration: none;
+
 }
+
 h1, h2, h3, h4, h5, p, div, span, a {
     font-family: 'Jost', sans-serif;
 }
@@ -156,10 +161,11 @@ h2 {
     font-size: 44px;
     font-weight: 500; 
 }
+
 h3 {
     font-size: 20px;
     font-weight: 500; 
 }
-` 
+`;
 
-export default GlobalStyles; 
+export default GlobalStyle;

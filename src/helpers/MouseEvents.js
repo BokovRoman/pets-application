@@ -1,24 +1,20 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const MouseEvents = () => {
-    const handleMouseOver = (filter) => {
-        if (filter === 'breed') {
-            setLimitOpen(false);
-        } else if (filter === 'limit') {
-            setBrOpen(false);
-        }
+  const handleMouseOver = (filter) => {
+    if (filter === "breed") {
+      setLimitOpen(false);
+    } else if (filter === "limit") {
+      setBrOpen(false);
     }
+  };
 
-    const handleMouseLeave = () => {
-        setBrOpen(false);
-        setLimitOpen(false);
-    }
+  const handleMouseLeave = () => {
+    setBrOpen(false);
+    setLimitOpen(false);
+  };
 
-    return (
-        <div>
-
-        </div>
-    )
-}
+  return <div></div>;
+};
 
 export default MouseEvents;
