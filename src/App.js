@@ -18,7 +18,6 @@ import Favorites from "./routes/Favorites";
 import Disliked from "./routes/Disliked";
 import Selected from "./routes/Selected/Selected";
 import SearchResult from "./routes/Search/SearchResult";
-import Search from "./components/Searchbar/Search";
 
 function App() {
   const [theme, setTheme] = useState(lightTheme);
@@ -39,9 +38,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
         </Routes>
         <StyledSection flexCol>
-        <Search isOpen={isOpen} setIsOpen={setIsOpen} />
           <Routes>
-              {/* <Route exact path="/" element={<Home />} /> */}
               <Route exact path="/voting" element={<Voting/>}/>
               <Route exact path="/breeds" element={<BreedsProvider><Breeds /></BreedsProvider>} />
               <Route exact path="/breeds/selected" element={<Selected/>} />
@@ -81,7 +78,7 @@ const StyledSection = styled.div`
   height: auto;
   min-height: 100vh;
   max-height: auto;
-  width: 50%;
+  
   padding: 1.8rem;
   display: flex;
   justify-content: flex-start;

@@ -21,7 +21,7 @@ export const BreedsProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios("https://api.thecatapi.com/v1/breeds");
+      const response = await axios("https://api.thedogapi.com/v1/breeds");
       setBreeds(response.data);
     };
     fetchData();

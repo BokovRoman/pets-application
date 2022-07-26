@@ -2,13 +2,13 @@ import  { useEffect, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-
 import { BreedsContext } from "../../helpers/BreedsContext";
 import Select from "../../helpers/Select";
 import Loader from "../../components/Shared/Loader";
 import Wrapper from "../../components/Shared/Wrapper";
 import GoBack from "../../components/Shared/GoBack";
 import BreedsSort from "./BreedsSort";
+import Search from "components/Searchbar/Search";
 
 import {
   Masonry,
@@ -29,13 +29,15 @@ const Breeds = () => {
   const [order] = orderKey;
   const [loading, setLoading] = useState();
   const { selected, handleSelectedClick } = Select();
+  const [isOpen, setIsOpen] = useState(false);
+
 
   useEffect(() => {
     const breedID = currBreed.id;
     setLoading(true);
     const fetchData = async () => {
       const response = await axios(
-        `https://api.thecatapi.com/v1/images/search?limit=${limit}&order=${order}&has_breeds=true&size=med&breed_id=${
+        `https://api.thedogapi.com/v1/images/search?limit=${limit}&order=${order}&has_breeds=true&size=med&breed_id=${
           breedID ? breedID : ""
         }`
       );
@@ -61,45 +63,47 @@ const Breeds = () => {
   }, [cats]);
 
   return (
-    <Wrapper>
-      <Span>
-        <GoBack btnContent="Breeds" />
-        <BreedsSort />
-      </Span>
+    <>
+      <Search isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Wrapper>
+        <Span>
+          <GoBack btnContent="Breeds" />
+          <BreedsSort />
+        </Span>
+        {loading ? (
+          <Loader />
+        ) : (
+          <Masonry>
+            {chunked.map((tenCats, index) => (
+              <Pattern key={index}>
+                {tenCats
+                  .sort((a, b) =>
+                    a.width / a.height > b.width / b.height ? 1 : -1
+                  )
+                  .map((cat, index) => (
+                    <GridItemWithName key={cat.id} index={index}>
+                      <Img src={cat.url} />
 
-      {loading ? (
-        <Loader />
-      ) : (
-        <Masonry>
-          {chunked.map((tenCats, index) => (
-            <Pattern key={index}>
-              {tenCats
-                .sort((a, b) =>
-                  a.width / a.height > b.width / b.height ? 1 : -1
-                )
-                .map((cat, index) => (
-                  <GridItemWithName key={cat.id} index={index}>
-                    <Img src={cat.url} />
-
-                    {cat.breeds.length > 0 ? (
-                      <Label>
-                        <StyledLink
-                          to="/breeds/selected"
-                          onClick={() => handleSelectedClick(cat)}
-                        >
-                          {cat.breeds[0].name}
-                        </StyledLink>
-                      </Label>
-                    ) : (
-                      <Label>No name provided</Label>
-                    )}
-                  </GridItemWithName>
-                ))}
-            </Pattern>
-          ))}
-        </Masonry>
-      )}
-    </Wrapper>
+                      {cat.breeds.length > 0 ? (
+                        <Label>
+                          <StyledLink
+                            to="/breeds/selected"
+                            onClick={() => handleSelectedClick(cat)}
+                          >
+                            {cat.breeds[0].name}
+                          </StyledLink>
+                        </Label>
+                      ) : (
+                        <Label>No name provided</Label>
+                      )}
+                    </GridItemWithName>
+                  ))}
+              </Pattern>
+            ))}
+          </Masonry>
+        )}
+      </Wrapper>
+    </>
   );
 };
 

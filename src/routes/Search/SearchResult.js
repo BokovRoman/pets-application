@@ -38,7 +38,7 @@ const SearchResult = () => {
           },
         };
         const response = await axios(
-          `https://api.thecatapi.com/v1/images/search?limit=20&q=${qp}&has_breeds=true&size=med`,
+          `https://api.thedogapi.com/v1/images/search?limit=20&q=${qp}&has_breeds=true&size=med`,
           config
         );
 

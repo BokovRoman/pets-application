@@ -57,7 +57,7 @@ const UploadModal = ({ open, onClose }) => {
       fd.append("file", file);
     });
     axios
-      .post("https://api.thecatapi.com/v1/images/upload", fd, config)
+      .post("https://api.thedogapi.com/v1/images/upload", fd, config)
       .then((response) => {
         setResponseStatus(response.status);
         setHidden(false);
@@ -93,7 +93,7 @@ const UploadModal = ({ open, onClose }) => {
         <p>
           Any uploads must comply with the{" "}
           <a
-            href="https://www.thecatapi.com/privacy"
+            href="https://www.thedogapi.com/privacy"
             target="_blank"
             rel="noreferrer"
           >

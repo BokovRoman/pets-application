@@ -32,7 +32,7 @@ const Sidenav = ({ theme, setTheme, isOpen, setIsOpen }) => {
               <p>
                 Welcome to MI 2022 Front-end test
               </p>
-              <h3>Let's start using The Cat API</h3>
+              <h3>Let's start using The Dog API</h3>
               <Nav>
                 <NavItem
                   btnContent="Voting"
