@@ -1,5 +1,5 @@
 {
-  "name": "PetsApplication",
+  "name": "pets-application",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://BokovRoman/pets-application",
@@ -8,6 +8,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
+    "nth-check": "^2.1.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-dropzone": "^14.2.2",
