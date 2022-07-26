@@ -1,6 +1,10 @@
+Welcome! PetsPaw is the perfect place to explore breeds, to save your favorite
+pics and to share pictures with your friends. This aplication was built using
+React.js and is based on The Dogs API.
+
 **Read in other languages: [Русский](README.md), [Polska](README.pl.md).**
 
-# React homework template
+# React template
 
 Этот проект был создан при помощи
 [Create React App](https://github.com/facebook/create-react-app). Для знакомства
