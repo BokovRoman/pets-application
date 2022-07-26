@@ -3,24 +3,33 @@ import { BreedsContext } from "./BreedsContext";
 
 const FilterItems = () => {
   const {
+    // eslint-disable-next-line no-unused-vars
     chunkedKey,
     currBreedKey,
     limitKey,
     orderKey,
+    // eslint-disable-next-line no-unused-vars
     catsKey,
     breedsOpenKey,
     limitOpenKey,
+    // eslint-disable-next-line no-unused-vars
     breedsKey,
     breedTitleKey,
     limitTitleKey,
   } = useContext(BreedsContext);
 
+  // eslint-disable-next-line no-unused-vars
   const [currBreed, setCurrBreed] = currBreedKey;
+  // eslint-disable-next-line no-unused-vars
   const [limit, setLimit] = limitKey;
   const [order, setOrder] = orderKey;
+  // eslint-disable-next-line no-unused-vars
   const [breedsOpen, setBrOpen] = breedsOpenKey;
+  // eslint-disable-next-line no-unused-vars
   const [limitOpen, setLimitOpen] = limitOpenKey;
+  // eslint-disable-next-line no-unused-vars
   const [breedTitle, setBreedTitle] = breedTitleKey;
+  // eslint-disable-next-line no-unused-vars
   const [limitTitle, setLimitTitle] = limitTitleKey;
 
   const handleFilterClick = (identifier, item) => {

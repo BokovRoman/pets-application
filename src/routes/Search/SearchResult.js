@@ -25,6 +25,7 @@ const SearchResult = () => {
   const [cats, setCats] = useState({});
   const [chunked, setChunked] = useState([]);
 
+  // eslint-disable-next-line no-unused-vars
   const { selected, handleSelectedClick } = Select();
 
   useEffect(() => {

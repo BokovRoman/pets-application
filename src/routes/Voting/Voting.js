@@ -33,6 +33,7 @@ const Voting = ({ like, fav, disl }) => {
       setLoading(false);
     };
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [liked, disliked]);
 
   const url = randomCat.url;

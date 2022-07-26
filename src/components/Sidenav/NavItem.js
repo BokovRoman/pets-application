@@ -16,6 +16,7 @@ const NavItem = ({
 }) => {
   const [active, setActive] = useState(false);
   const { searchTermKey } = useContext(CatContext);
+  // eslint-disable-next-line no-unused-vars
   const [searchTerm, setSearchTerm] = searchTermKey;
 
   useEffect(() => {

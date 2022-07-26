@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 import { GalleryContext } from "../../helpers/GalleryContext";
 import FilterItems from "../../helpers/FilterItemsGallery";
@@ -25,6 +25,7 @@ const DropdownItem = ({
   const [typeTitle] = typeTitleKey;
   const [currBreedTitle, setCurrBreedTitle] = currBreedTitleKey;
   const [limitTitle] = limitTitleKey;
+  // eslint-disable-next-line no-unused-vars
   const [currBreed, setCurrBreed] = currBreedKey;
 
   const [isOpen, setIsOpen] = useState(false);

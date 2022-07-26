@@ -5,19 +5,23 @@ import Item from "./DropdownItem";
 import FilterItems from "../../helpers/FilterItemsBreeds";
 
 const BreedsSort = () => {
+  // eslint-disable-next-line no-unused-vars
   const { currBreedKey, limitKey, orderKey, breedsKey } = useContext(
     BreedsContext
   );
 
+  // eslint-disable-next-line no-unused-vars
   const [currBreed, setCurrBreed] = currBreedKey;
   const [order] = orderKey;
   const [breeds] = breedsKey;
+  // eslint-disable-next-line no-unused-vars
   const { handleFilterClick, changeOrder } = FilterItems();
 
   let label;
   if (currBreed.name === "" || currBreed.name === undefined) {
     label = "All breeds";
   } else {
+    // eslint-disable-next-line no-unused-vars
     label = currBreed.name;
   }
 

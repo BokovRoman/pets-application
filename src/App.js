@@ -22,6 +22,7 @@ import SearchResult from "./routes/Search/SearchResult";
 function App() {
   const [theme, setTheme] = useState(lightTheme);
   const { searchTermKey } = useContext(CatContext);
+  // eslint-disable-next-line no-unused-vars
   const [searchTerm, setSearchTerm] = searchTermKey;
   const [isOpen, setIsOpen] = useState(false);
 

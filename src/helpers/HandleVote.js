@@ -12,10 +12,14 @@ const HandleVote = () => {
   };
 
   const { likeKey, favKey, disKey, logKey, activeKey } = useContext(CatContext);
+  // eslint-disable-next-line no-unused-vars
   const [liked, addToLiked] = likeKey;
   const [favorites, addToFav] = favKey;
+  // eslint-disable-next-line no-unused-vars
   const [disliked, addToDisliked] = disKey;
+  // eslint-disable-next-line no-unused-vars
   const [log, setLog] = logKey;
+  // eslint-disable-next-line no-unused-vars
   const [active, setActive] = activeKey;
 
   const handleClick = (type, randomCat) => {

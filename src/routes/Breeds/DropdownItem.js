@@ -21,7 +21,9 @@ const DropdownItem = ({
   const { currBreedKey, limitKey, breedTitleKey, limitTitleKey } = useContext(
     BreedsContext
   );
+  // eslint-disable-next-line no-unused-vars
   const [currBreed, setCurrBreed] = currBreedKey;
+  // eslint-disable-next-line no-unused-vars
   const [limit, setLimit] = limitKey;
   const [breedTitle] = breedTitleKey;
   const [limitTitle] = limitTitleKey;
@@ -34,6 +36,7 @@ const DropdownItem = ({
     setIsOpen(false);
   };
 
+  // eslint-disable-next-line no-unused-vars
   const handleMouseOver = () => {
     setIsOpen(false);
   };

@@ -28,6 +28,7 @@ const Breeds = () => {
   const [cats, setCats] = catsKey;
   const [order] = orderKey;
   const [loading, setLoading] = useState();
+  // eslint-disable-next-line no-unused-vars
   const { selected, handleSelectedClick } = Select();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -45,6 +46,7 @@ const Breeds = () => {
       setLoading(false);
     };
     setTimeout(() => fetchData(), 1000);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, currBreed, order]);
 
 
@@ -60,6 +62,7 @@ const Breeds = () => {
       setChunked(result);
       setLoading(false);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cats]);
 
   return (

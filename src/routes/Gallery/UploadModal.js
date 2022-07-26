@@ -53,6 +53,7 @@ const UploadModal = ({ open, onClose }) => {
       },
     };
     let fd = new FormData();
+    // eslint-disable-next-line array-callback-return
     files.map((file) => {
       fd.append("file", file);
     });
